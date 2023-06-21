@@ -31,7 +31,7 @@ def caeser_aes_encrypt(message, key_aes, key_caeser):
 
 message = b"Hello, World!"
 key_aes = b"ThisIsASecretKey"
-key_caeser = [random.randint(1,500)]  # Example key for Caesar cipher
+key_caeser = [random.randint(1,500)]  # Updated Key
 
 encrypted_message = caeser_aes_encrypt(message, key_aes, key_caeser)
 print(encrypted_message)
