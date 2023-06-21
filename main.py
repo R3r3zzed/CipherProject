@@ -1,6 +1,7 @@
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import padding
+import random
 
 def caeser_aes_encrypt(message, key_aes, key_caeser):
     # AES Encryption
@@ -30,7 +31,7 @@ def caeser_aes_encrypt(message, key_aes, key_caeser):
 
 message = b"Hello, World!"
 key_aes = b"ThisIsASecretKey"
-key_caeser = [3, 5, 7]  # Example key for Caesar cipher
+key_caeser = [random.randint(1,500)]  # Example key for Caesar cipher
 
 encrypted_message = caeser_aes_encrypt(message, key_aes, key_caeser)
 print(encrypted_message)
