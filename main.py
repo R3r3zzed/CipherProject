@@ -4,7 +4,7 @@ from cryptography.hazmat.primitives import padding
 import random
 
 def caeser_aes_encrypt(message, key_aes, key_caeser):
-    # AES Encryption
+    #AES Encryption
     backend = default_backend()
     cipher = Cipher(algorithms.AES(key_aes), modes.ECB(), backend=backend)
     encryptor = cipher.encryptor()
@@ -14,7 +14,7 @@ def caeser_aes_encrypt(message, key_aes, key_caeser):
 
     ciphertext_aes = encryptor.update(padded_data) + encryptor.finalize()
 
-    # Caeser Cipher
+    #Caeser Cipher
     encrypted_message = ""
     key_index = 0
     for char in ciphertext_aes:
