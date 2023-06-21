@@ -1,6 +1,6 @@
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import padding
+from cryptography.hazmat.primitives import padding, hashes, hmac
 import random
 
 def caeser_aes_encrypt(message, key_aes, key_caeser):
@@ -29,9 +29,23 @@ def caeser_aes_encrypt(message, key_aes, key_caeser):
             encrypted_message += char
     return encrypted_message
 
+    #HMAC
+    h = hmac.HMAC(key_aes, hashes.SHA256(), backend=default_backend())
+    h.update(encrypted_message.encode('utf-8'))
+    mac = h.finalize()
+
+    return encrypted_message, mac
+
 message = b"Hello, World!"
 key_aes = b"ThisIsASecretKey"
 key_caeser = [random.randint(1,750)]  # Updated Key
 
 encrypted_message = caeser_aes_encrypt(message, key_aes, key_caeser)
 print(encrypted_message)
+
+result = caeser_aes_encrypt(message, key_aes, key_caeser)
+encrypted_message = result[0]
+mac = result[1]
+
+print("Encrypted Message:", encrypted_message)
+print("MAC:", mac)
