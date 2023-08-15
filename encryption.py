@@ -4,9 +4,8 @@ from cryptography.hazmat.primitives import padding, hashes, hmac
 import random
 import binascii
 
-
 def caeser_aes_encrypt(message, key_aes, key_caeser):
-    #AES Encryption
+    # AES Encryption
     backend = default_backend()
     cipher = Cipher(algorithms.AES(key_aes), modes.ECB(), backend=backend)
     encryptor = cipher.encryptor()
@@ -16,7 +15,7 @@ def caeser_aes_encrypt(message, key_aes, key_caeser):
 
     ciphertext_aes = encryptor.update(padded_data) + encryptor.finalize()
 
-    #Caeser Cipher
+    # Caesar Cipher
     encrypted_message = ""
     key_index = 0
     for char in ciphertext_aes:
@@ -30,16 +29,16 @@ def caeser_aes_encrypt(message, key_aes, key_caeser):
         else:
             encrypted_message += char
 
-    #HMAC
+    # HMAC
     h = hmac.HMAC(key_aes, hashes.SHA256(), backend=default_backend())
     h.update(encrypted_message.encode('utf-8'))
     mac = h.finalize()
 
     return encrypted_message, mac
 
-message = input("Enter secret message:")
+message = input("Enter secret message: ")
 key_aes = b"ThisIsASecretKey"
-key_caeser = [random.randint(1,750)]  # Updated Key
+key_caeser = [random.randint(1, 750)]  # Updated Key
 
 result = caeser_aes_encrypt(message.encode('utf-8'), key_aes, key_caeser)
 encrypted_message = result[0]
@@ -47,3 +46,5 @@ mac = binascii.hexlify(result[1]).decode('utf-8')
 
 print("Encrypted Message:", encrypted_message)
 print("MAC:", mac)
+
+pass
